@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 /**
  * CÓDIGO LEGACY - PROYECTO TECHSHOP
  * * Esta clase contiene la lógica de negocio antigua que debe ser refactorizada.
@@ -52,14 +50,14 @@ public class GestorPedidos {
 
     /**
      *
-     * @param totalDelPedido
+     * @param totalPedido
      */
-    public void mostrarResumenPedido(double totalDelPedido) {
+    public void mostrarResumenPedido(double totalPedido) {
 
-        if (totalDelPedido > PRECIO_ACCESIBLE_DE_PEDIDO_GRANDE) {
-            System.out.println("Pedido Grande: " + totalDelPedido);
+        if (totalPedido > PRECIO_ACCESIBLE_DE_PEDIDO_GRANDE) {
+            System.out.println("Pedido Grande: " + totalPedido);
         } else {
-            System.out.println("Pedido Normal: " + totalDelPedido);
+            System.out.println("Pedido Normal: " + totalPedido);
         }
 
         try {
