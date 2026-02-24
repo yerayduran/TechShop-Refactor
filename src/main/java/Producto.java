@@ -1,13 +1,15 @@
+package main.java;
+
 // CÓDIGO LEGACY CON ERRORES INTENCIONADOS
 public class Producto {
 
-    public String n;
-    public double p;
-    public int t; // 1 = Componente, 2 = Periférico, 3 = Servicio
+    public String nombre;
+    public double precio;
+    public int dineroTotal; // 1 = Componente, 2 = Periférico, 3 = Servicio
 
-    public Producto(String n, double p, int t) {
-        this.n = n;
-        this.p = p;
-        this.t = t;
+    public Producto(String nombre, double precio, int dineroTotal) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.dineroTotal = dineroTotal;
     }
 }
