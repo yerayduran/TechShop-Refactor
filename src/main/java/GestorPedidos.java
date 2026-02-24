@@ -8,6 +8,9 @@ import java.util.ArrayList;
  */
 public class GestorPedidos {
 
+    private static final double IVA_COMPONENTE = 1.21;
+    private static final double IVA_PERIFERICO = 1.10;
+
     /**
      * ERROR 1: Naming (Nombrado) - El nombre 'calcular' es muy genérico.
      * FUNCIONALIDAD: Este método recibe una lista de productos, recorre cada uno, determina su tipo,
@@ -33,15 +36,15 @@ public class GestorPedidos {
             // Esto hace que el código sea difícil de leer y muy costoso de mantener si los valores cambian.
             // DEBERÍA HACERSE: Sustituir estos números por Constantes con nombres que expliquen el significado de negocio de cada valor.
 
-            if (productos[i].dineroTotal == 1) {
+            if (productos[i].getTipoProducto() == 1) {
                 // Componentes tienen 21% de IVA
-                dineroTotal += productos[i].precio * 1.21;
-            } else if (productos[i].dineroTotal == 2) {
+                dineroTotal += productos[i].getPrecioBase() * 1.21;
+            } else if (productos[i].getTipoProducto() == 2) {
                 // Periféricos tienen 10% de IVA (Lógica antigua)
-                dineroTotal += productos[i].precio * 1.10;
-            } else if (productos[i].dineroTotal == 3) {
+                dineroTotal += productos[i].getPrecioBase() * 1.10;
+            } else if (productos[i].getTipoProducto() == 3) {
                 // Servicios exentos de IVA
-                dineroTotal += productos[i].precio;
+                dineroTotal += productos[i].getPrecioBase();
             }
         }
 

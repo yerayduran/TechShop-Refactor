@@ -2,16 +2,16 @@
 public class Producto {
 
     private String nombre;
-    private double precio;
+    private double precioBase;
     private int tipoProducto; // 1 = Componente, 2 = Periférico, 3 = Servicio
 
     public static final int TIPO_COMPONENTE = 1;
     public static final int TIPO_PERIFERICO = 2;
     public static final int TIPO_SERVICIO = 3;
 
-    public Producto(String nombre, double precio, int tipoProducto) {
+    public Producto(String nombre, double precioBase, int tipoProducto) {
         this.nombre = nombre;
-        this.precio = precio;
+        this.precioBase = precioBase;
         this.tipoProducto = tipoProducto;
     }
 
@@ -19,7 +19,7 @@ public class Producto {
         return nombre;
     }
 
-    public double getPrecio() {
+    public double getPrecioBase() {
         return precio;
     }
 
@@ -31,7 +31,7 @@ public class Producto {
         this.nombre = nombre;
     }
 
-    public void setPrecio(double precio) {
+    public void setPrecioBase(double precioBase) {
         this.precio = precio;
     }
 
