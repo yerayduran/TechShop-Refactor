@@ -35,8 +35,8 @@ public class GestorPedidosTest {
         };
 
         double total = gestorPedidos.calcularImporteTotalConImpuestos(productos);
-        // Rompo el test a propósito cambiando 55.0 por 999.0
-        assertEquals(999.0, total, 0.001, "Mouse: 50 * 1.10 = 55.0");
+
+        assertEquals(55.0, total, 0.001, "Mouse: 50 * 1.10 = 55.0");
     }
 
     @Test
@@ -113,6 +113,7 @@ public class GestorPedidosTest {
             "10, 'Envio Premium'",
             "11, 'Envio Premium'"
     })
+
     void evaluarEnvio_fronteras(int numeroProductos, String tipoEsperado) {
         String tipoEnvio = gestorPedidos.evaluarEnvio(numeroProductos);
         assertEquals(tipoEsperado, tipoEnvio);
