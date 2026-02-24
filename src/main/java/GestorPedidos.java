@@ -8,22 +8,21 @@ import java.util.ArrayList;
  */
 public class GestorPedidos {
 
-    private static final double IVA_COMPONENTE = 1.21;
-    private static final double IVA_PERIFERICO = 1.10;
+    private static final double PRECIO_CON_IVA_COMPONENTE = 1.21;
+    private static final double PRECIO_CON_IVA_PERIFERICO = 1.10;
+    private static final double PRECIO_ACCESIBLE_DE_PEDIDO_GRANDE = 1000.0;
 
-    /**
-     * ERROR 1: Naming (Nombrado) - El nombre 'calcular' es muy genérico.
-     * FUNCIONALIDAD: Este método recibe una lista de productos, recorre cada uno, determina su tipo,
-     * le aplica el impuesto correspondiente (IVA) y suma todos los importes para obtener el coste final del pedido.
-     * DEBERÍA HACERSE: Renombrar el método para que refleje esta operación de cálculo total con impuestos.
-     */
-    public void calcularTotalProductoConIVA(Producto[] productos) {
+    private static final int LIMITE_ENVIO_ESTANDAR_SUPERIOR = 5;
+    private static final int LIMITE_ENVIO_DESCUENTO_SUPERIOR = 10;
+
+
+    public void calcularImporteTotalConImpuestos(Producto[] productos) {
 
         // ERROR 2: Variables poco descriptivas - La variable 't' es críptica.
         // FUNCIONALIDAD: Esta variable actúa como un acumulador. Empieza en 0 y guarda la suma progresiva
         // del precio de cada producto más su IVA. Al final del método, representa el dinero total a pagar.
         // DEBERÍA HACERSE: Darle un nombre que indique que almacena el importe total acumulado.
-        double dineroTotal = 0;
+        double t = 0.0;
 
         // ERROR 3: Robustez (NullPointerException)
         // El bucle accede directamente a las propiedades de cada elemento sin verificar si existen.
@@ -36,56 +35,47 @@ public class GestorPedidos {
             // Esto hace que el código sea difícil de leer y muy costoso de mantener si los valores cambian.
             // DEBERÍA HACERSE: Sustituir estos números por Constantes con nombres que expliquen el significado de negocio de cada valor.
 
-            if (productos[i].getTipoProducto() == 1) {
+            if (productos[i].t == 1) {
                 // Componentes tienen 21% de IVA
-                dineroTotal += productos[i].getPrecioBase() * 1.21;
-            } else if (productos[i].getTipoProducto() == 2) {
+                t += productos[i].p * 1.21;
+            } else if (productos[i].t == 2) {
                 // Periféricos tienen 10% de IVA (Lógica antigua)
-                dineroTotal += productos[i].getPrecioBase() * 1.10;
-            } else if (productos[i].getTipoProducto() == 3) {
+                t += productos[i].p * 1.10;
+            } else if (productos[i].t == 3) {
                 // Servicios exentos de IVA
-                dineroTotal += productos[i].getPrecioBase();
+                t += productos[i].p;
             }
         }
-
-        // ERROR 5: Responsabilidad Única / Salida por Consola
-        // Este método mezcla la lógica de cálculo con la presentación de datos por consola.
-        // Esto limita la reutilización del código, ya que no permite obtener el resultado para usarlo en otra parte.
-        // DEBERÍA HACERSE: Modificar el método para que devuelva el dato calculado en lugar de imprimirlo.
-        if (dineroTotal > 1000) {
-            System.out.println("Pedido Grande: " + dineroTotal);
-        } else {
-            System.out.println("Pedido Normal: " + dineroTotal);
-        }
-
-        try {
-            // Simulación de envío a base de datos legacy
-            // Esto provocará una ArithmeticException (división por cero) intencionada
-            int check = 10 / 0;
-        } catch (Exception e) {
-            // ERROR 6: Silenciamiento de Excepciones (Swallowed Exception)
-            // Se captura la excepción pero no se hace nada con ella. El error pasa desapercibido.
-            // DEBERÍA HACERSE: Gestionar la excepción adecuadamente, registrando el error (Log) o notificándolo.
-        }
-    }
-
-    // ERROR 7: Código Muerto (Dead Code)
-    // El análisis del código revela que este método nunca es invocado desde ninguna parte del proyecto.
-    // DEBERÍA HACERSE: Eliminar el código innecesario para mantener el proyecto limpio.
-    public boolean checkStock(String nombre) {
-        return true;
     }
 
     /**
-     * ERROR 8: Bug Lógico en Límites (Boundary Testing)
-     * La lógica condicional deja un caso sin cubrir explícitamente, provocando un comportamiento erróneo.
-     * Analiza qué ocurre exactamente cuando el número de productos coincide con el valor frontera (5).
-     * * DEBERÍA HACERSE: Ajustar los operadores de comparación para asegurar que todos los casos posibles están cubiertos correctamente.
+     *
+     * @param totalDelPedido
+     */
+    public void mostrarResumenPedido(double totalDelPedido) {
+
+        if (totalDelPedido > PRECIO_ACCESIBLE_DE_PEDIDO_GRANDE) {
+            System.out.println("Pedido Grande: " + totalDelPedido);
+        } else {
+            System.out.println("Pedido Normal: " + totalDelPedido);
+        }
+
+        try {
+            int check = 10 / 0;
+        } catch (ArithmeticException e) {
+           System.err.println("Se ha producido un error al registrar el pedido en el sistema legacy: " + e.getMessage());
+        }
+    }
+
+    /**
+     *
+     * @param numeroProductos
+     * @return
      */
     public String evaluarEnvio(int numeroProductos) {
-        if (numeroProductos < 5) {
+        if (numeroProductos <= LIMITE_ENVIO_ESTANDAR_SUPERIOR) {
             return "Envio Estandar";
-        } else if (numeroProductos > 5 && numeroProductos < 10) {
+        } else if (numeroProductos > LIMITE_ENVIO_ESTANDAR_SUPERIOR && numeroProductos < LIMITE_ENVIO_DESCUENTO_SUPERIOR) {
             return "Envio Descuento";
         } else {
             return "Envio Premium";
