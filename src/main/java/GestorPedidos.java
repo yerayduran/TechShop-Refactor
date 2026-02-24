@@ -14,13 +14,13 @@ public class GestorPedidos {
      * le aplica el impuesto correspondiente (IVA) y suma todos los importes para obtener el coste final del pedido.
      * DEBERÍA HACERSE: Renombrar el método para que refleje esta operación de cálculo total con impuestos.
      */
-    public void calcular(Producto[] productos) {
+    public void calcularTotalProductoConIVA(Producto[] productos) {
 
         // ERROR 2: Variables poco descriptivas - La variable 't' es críptica.
         // FUNCIONALIDAD: Esta variable actúa como un acumulador. Empieza en 0 y guarda la suma progresiva
         // del precio de cada producto más su IVA. Al final del método, representa el dinero total a pagar.
         // DEBERÍA HACERSE: Darle un nombre que indique que almacena el importe total acumulado.
-        double t = 0;
+        double dineroTotal = 0;
 
         // ERROR 3: Robustez (NullPointerException)
         // El bucle accede directamente a las propiedades de cada elemento sin verificar si existen.
@@ -33,15 +33,15 @@ public class GestorPedidos {
             // Esto hace que el código sea difícil de leer y muy costoso de mantener si los valores cambian.
             // DEBERÍA HACERSE: Sustituir estos números por Constantes con nombres que expliquen el significado de negocio de cada valor.
 
-            if (productos[i].t == 1) {
+            if (productos[i].dineroTotal == 1) {
                 // Componentes tienen 21% de IVA
-                t += productos[i].p * 1.21;
-            } else if (productos[i].t == 2) {
+                dineroTotal += productos[i].precio * 1.21;
+            } else if (productos[i].dineroTotal == 2) {
                 // Periféricos tienen 10% de IVA (Lógica antigua)
-                t += productos[i].p * 1.10;
-            } else if (productos[i].t == 3) {
+                dineroTotal += productos[i].precio * 1.10;
+            } else if (productos[i].dineroTotal == 3) {
                 // Servicios exentos de IVA
-                t += productos[i].p;
+                dineroTotal += productos[i].precio;
             }
         }
 
@@ -49,10 +49,10 @@ public class GestorPedidos {
         // Este método mezcla la lógica de cálculo con la presentación de datos por consola.
         // Esto limita la reutilización del código, ya que no permite obtener el resultado para usarlo en otra parte.
         // DEBERÍA HACERSE: Modificar el método para que devuelva el dato calculado en lugar de imprimirlo.
-        if (t > 1000) {
-            System.out.println("Pedido Grande: " + t);
+        if (dineroTotal > 1000) {
+            System.out.println("Pedido Grande: " + dineroTotal);
         } else {
-            System.out.println("Pedido Normal: " + t);
+            System.out.println("Pedido Normal: " + dineroTotal);
         }
 
         try {
@@ -69,7 +69,7 @@ public class GestorPedidos {
     // ERROR 7: Código Muerto (Dead Code)
     // El análisis del código revela que este método nunca es invocado desde ninguna parte del proyecto.
     // DEBERÍA HACERSE: Eliminar el código innecesario para mantener el proyecto limpio.
-    public boolean checkStock(String n) {
+    public boolean checkStock(String nombre) {
         return true;
     }
 
