@@ -1,4 +1,3 @@
-// CÓDIGO LEGACY CON ERRORES INTENCIONADOS
 public class Producto {
 
     private String nombre;
@@ -20,7 +19,7 @@ public class Producto {
     }
 
     public double getPrecioBase() {
-        return precio;
+        return precioBase;
     }
 
     public int getTipoProducto() {
@@ -32,7 +31,7 @@ public class Producto {
     }
 
     public void setPrecioBase(double precioBase) {
-        this.precio = precio;
+        this.precioBase = precioBase;
     }
 
     public void setTipoProducto(int tipoProducto) {
