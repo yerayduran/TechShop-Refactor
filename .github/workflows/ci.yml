@@ -1,0 +1,26 @@
+name: Java CI with Maven
+
+on:
+  pull_request:
+    branches: [ "develop" ] # Se activa al intentar fusionar una rama
+
+jobs:
+  test:
+    runs-on: ubuntu-latest # Sistema Operativo del runner
+
+    steps:
+      # 1. Clona el repositorio
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Instala Java 25
+      - name: Set up JDK 25
+        uses: actions/setup-java@v4
+        with:
+          java-version: '25'
+          distribution: 'temurin'
+          cache: maven
+
+      # 3. Ejecuta los tests JUnit con Maven
+      - name: Run JUnit tests
+        run: mvn --batch-mode test
